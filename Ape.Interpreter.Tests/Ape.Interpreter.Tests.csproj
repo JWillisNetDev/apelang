@@ -13,6 +13,8 @@
         <Using Include="Xunit" />
         <Using Include="Ape.Interpreter" />
         <Using Include="Ape.Interpreter.Lexing" />
+        <Using Include="Ape.Interpreter.Parsing" />
+        <Using Include="Ape.Interpreter.Parsing.Ast" />
     </ItemGroup>
     
     <ItemGroup>

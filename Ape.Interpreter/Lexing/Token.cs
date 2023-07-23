@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Ape.Interpreter.Lexing;
 
-public struct Token
+public class Token
 {
     public Token(TokenType type, string literal)
     {

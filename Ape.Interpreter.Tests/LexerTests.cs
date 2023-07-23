@@ -13,9 +13,9 @@ public class LexerTests
         AssertTokenSequenceMatches(lexer, new()
         {
             (Let, "let"),
-            (TokenType.Identifier, "foo"),
+            (Identifier, "foo"),
             (Assign, "="),
-            (Number, "1.234"),
+            (TokenType.Double, "1.234"),
             (Semicolon, ";"),
             (EndOfFile, "\0"),
         });
@@ -79,10 +79,10 @@ public class LexerTests
         Lexer lexer = new(input);
         AssertTokenSequenceMatches(lexer, new()
         {
-            (TokenType.Identifier, "foo"),
-            (TokenType.Identifier, "bar"),
-            (TokenType.Identifier, "test12345"),
-            (TokenType.Identifier, "some_variable_name"),
+            (Identifier, "foo"),
+            (Identifier, "bar"),
+            (Identifier, "test12345"),
+            (Identifier, "some_variable_name"),
             (EndOfFile, "\0"),
         });
     }
@@ -97,10 +97,10 @@ public class LexerTests
         Lexer lexer = new(input);
         AssertTokenSequenceMatches(lexer, new()
         {
-            (TokenType.Identifier, "foo"),
+            (Identifier, "foo"),
             (Increment, "++"),
             (Semicolon, ";"),
-            (TokenType.Identifier, "bar"),
+            (Identifier, "bar"),
             (Decrement, "--"),
             (Semicolon, ";"),
             (EndOfFile, "\0"),
@@ -120,14 +120,14 @@ public class LexerTests
         AssertTokenSequenceMatches(lexer, new()
         {
             // foo > bar;
-            (TokenType.Identifier, "foo"),
+            (Identifier, "foo"),
             (GreaterThan, ">"),
-            (TokenType.Identifier, "bar"),
+            (Identifier, "bar"),
             (Semicolon, ";"),
             // foo < bar;
-            (TokenType.Identifier, "foo"),
+            (Identifier, "foo"),
             (LessThan, "<"),
-            (TokenType.Identifier, "bar"),
+            (Identifier, "bar"),
             (Semicolon, ";"),
             // true <= false;
             (True, "true"),
@@ -140,9 +140,9 @@ public class LexerTests
             (True, "true"),
             (Semicolon, ";"),
             // 123.456 == 654.321;
-            (Number, "123.456"),
+            (TokenType.Double, "123.456"),
             (TokenType.Equals, "=="),
-            (Number, "654.321"),
+            (TokenType.Double, "654.321"),
             (Semicolon, ";"),
             (EndOfFile, "\0"),
         });
@@ -162,21 +162,21 @@ public class LexerTests
         Lexer lexer = new(input);
         AssertTokenSequenceMatches(lexer, new()
         {
-            (Number, "1"),
+            (Integer, "1"),
             (Plus, "+"),
-            (Number, "2"),
+            (Integer, "2"),
             (Semicolon, ";"),
-            (TokenType.Identifier, "three"),
+            (Identifier, "three"),
             (Minus, "-"),
-            (TokenType.Identifier, "four"),
+            (Identifier, "four"),
             (Semicolon, ";"),
-            (Number, "6"),
+            (Integer, "6"),
             (Slash, "/"),
-            (Number, "3"),
+            (Integer, "3"),
             (Semicolon, ";"),
-            (Number, "3.5"),
+            (TokenType.Double, "3.5"),
             (Splat, "*"),
-            (Number, "2.25"),
+            (TokenType.Double, "2.25"),
             (Semicolon, ";"),
             (Bang, "!"),
             (True, "true"),
@@ -198,9 +198,9 @@ public class LexerTests
         Lexer lexer = new(input);
         AssertTokenSequenceMatches(lexer, new()
         {
-            (Number, "123"),
+            (Integer, "123"),
             (Semicolon, ";"),
-            (Number, "123.456"),
+            (TokenType.Double, "123.456"),
             (Semicolon, ";"),
             (TokenType.String, "This is a string"),
             (Semicolon, ";"),
@@ -227,9 +227,9 @@ public class LexerTests
         Lexer lexer = new(input);
         AssertTokenSequenceMatches(lexer, new()
         {
-            (Number, "1234.5678"),
+            (TokenType.Double, "1234.5678"),
             (Illegal, "."),
-            (Number, "1234.5678"),
+            (TokenType.Double, "1234.5678"),
             (Semicolon, ";"),
             (Illegal, "`"),
             (Illegal, "~"),

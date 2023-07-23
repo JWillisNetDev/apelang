@@ -7,7 +7,7 @@ public enum TokenType
     EndOfFile,
     
     // Identifiers and Literals
-    Number,
+    Integer, Double,
     Identifier, 
     String,
     

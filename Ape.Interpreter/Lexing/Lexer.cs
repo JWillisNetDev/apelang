@@ -67,8 +67,15 @@ public class Lexer
     
     private Token NextNumber()
     {
-        string literal = ReadNumber();
-        return new Token(TokenType.Number, literal);
+        // Read all numbers to the first decimal, then read additional numbers if they exist.
+        string number = ReadNumber();
+        if (_current == '.')
+        {
+            ReadChar();
+            string decimalNumber = ReadNumber();
+            return new Token(TokenType.Double, $"{number}.{decimalNumber}");
+        }
+        return new Token(TokenType.Integer, number);
     }
 
     private Token NextOperator()
@@ -201,24 +208,11 @@ public class Lexer
     private string ReadNumber()
     {
         int startIndex = _position;
-        
-        // Read all numbers to the first decimal, then read additional numbers if they exist.
-        ReadNumbers();
-        if (_current == '.' && IsDigit(PeekChar()))
+        while (IsDigit(_current))
         {
             ReadChar();
-            ReadNumbers();
         }
-
         return Input[startIndex.._position];
-        
-        void ReadNumbers()
-        {
-            while (IsDigit(_current))
-            {
-                ReadChar();
-            }
-        }
     }
 
     private string ReadString()
